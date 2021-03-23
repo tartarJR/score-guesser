@@ -4,6 +4,7 @@
     <!-- General Errors -->
     <string name="general_error_unknown">Something went wrong. Please try again.</string>
     <string name="general_error_network">Please check your network connection.</string>
+    <string name="general_error_no_items">Nothing to display atm, lease try again..</string>
 
     <!-- Prediction -->
     <string name="predictions_action_results">See Results</string>
