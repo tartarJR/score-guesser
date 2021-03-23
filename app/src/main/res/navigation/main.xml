@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/predictions_fragment">
+
+    <fragment
+        android:id="@+id/predictions_fragment"
+        android:name="com.tatar.scoreguesser.feature.prediction.PredictionsFragment"
+        android:label="fragment_predictions"
+        tools:layout="@layout/fragment_predictions" >
+        <action
+            android:id="@+id/action_predictions_fragment_to_results_fragment"
+            app:destination="@id/results_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/results_fragment"
+        android:name="com.tatar.scoreguesser.feature.result.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" />
+</navigation>
