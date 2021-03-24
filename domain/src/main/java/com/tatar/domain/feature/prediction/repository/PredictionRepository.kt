@@ -5,6 +5,6 @@ import com.tatar.domain.feature.prediction.entity.MatchesEntity
 import com.tatar.domain.feature.prediction.entity.MatchesErrorEntity
 import io.reactivex.rxjava3.core.Single
 
-interface MatchRepository {
+interface PredictionRepository {
     fun getMatches(): Single<Result<MatchesEntity, MatchesErrorEntity>>
 }
