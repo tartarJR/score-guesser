@@ -68,6 +68,7 @@ dependencies {
     rxJava()
     rxAndroid()
     networking()
+    room()
 
     implementation(Dependencies.External.Timber.timber)
 }

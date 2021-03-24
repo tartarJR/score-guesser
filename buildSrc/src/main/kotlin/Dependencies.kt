@@ -30,6 +30,21 @@ object Dependencies {
             const val lifecycleCompiler = "androidx.lifecycle:lifecycle-common-java8:$version"
             const val savedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version"
         }
+
+        object Room {
+            private const val version = "2.3.0-beta03"
+
+            const val room = "androidx.room:room-runtime:$version"
+            const val roomRx = "androidx.room:room-rxjava3:$version"
+            const val roomCompiler = "androidx.room:room-compiler:$version"
+            const val roomTest = "androidx.room:room-testing:$version"
+        }
+
+        object Test {
+            const val jUnitExt = "androidx.test.ext:junit:1.1.2"
+            const val archCore = "androidx.arch.core:core-testing:2.1.0"
+            const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
+        }
     }
 
     object External {
@@ -49,10 +64,8 @@ object Dependencies {
         object AssistedInject {
             private const val version = "0.7.0"
 
-            const val assistedInject =
-                "com.squareup.inject:assisted-inject-annotations-dagger2:$version"
-            const val assistedInjectCompiler =
-                "com.squareup.inject:assisted-inject-processor-dagger2:$version"
+            const val assistedInject = "com.squareup.inject:assisted-inject-annotations-dagger2:$version"
+            const val assistedInjectCompiler = "com.squareup.inject:assisted-inject-processor-dagger2:$version"
         }
 
         object Retrofit {
@@ -68,6 +81,11 @@ object Dependencies {
 
             const val moshi = "com.squareup.moshi:moshi:$version"
             const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
+        }
+
+        object Test {
+            const val jUnit = "junit:junit:4.13"
+            const val assertJ = "org.assertj:assertj-core:3.19.0"
         }
 
         object Timber {
@@ -123,12 +141,38 @@ fun DependencyHandler.lifecycle() {
     implementation(Dependencies.AndroidX.LifeCycle.savedState)
 }
 
+fun DependencyHandler.room() {
+    implementation(Dependencies.AndroidX.Room.room)
+    implementation(Dependencies.AndroidX.Room.roomRx)
+    kapt(Dependencies.AndroidX.Room.roomCompiler)
+    androidTestImplementation(Dependencies.AndroidX.Room.roomTest)
+}
+
+fun DependencyHandler.androidxTest() {
+    androidTestImplementation(Dependencies.AndroidX.Test.jUnitExt)
+    androidTestImplementation(Dependencies.AndroidX.Test.archCore)
+    androidTestImplementation(Dependencies.AndroidX.Test.espresso)
+}
+
+fun DependencyHandler.test() {
+    testImplementation(Dependencies.External.Test.jUnit)
+    testImplementation(Dependencies.External.Test.assertJ)
+}
+
 private fun DependencyHandler.implementation(dependency: Dependency) {
     add("implementation", dependency)
 }
 
 private fun DependencyHandler.implementation(depName: String) {
     add("implementation", depName)
+}
+
+private fun DependencyHandler.testImplementation(depName: String) {
+    add("testImplementation", depName)
+}
+
+private fun DependencyHandler.androidTestImplementation(depName: String) {
+    add("androidTestImplementation", depName)
 }
 
 private fun DependencyHandler.kapt(depName: String) {

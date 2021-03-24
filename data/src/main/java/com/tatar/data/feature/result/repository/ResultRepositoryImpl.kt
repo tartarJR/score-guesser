@@ -4,6 +4,7 @@ import com.tatar.core.dagger.scope.ApplicationScope
 import com.tatar.core.data.Result
 import com.tatar.core.data.toNewModel
 import com.tatar.data.feature.result.mapper.MatchResultsMapper
+import com.tatar.data.source.LocalDataSource
 import com.tatar.data.source.RemoteDataSource
 import com.tatar.domain.feature.result.entity.MatchResultsEntity
 import com.tatar.domain.feature.result.entity.MatchResultsErrorEntity
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @ApplicationScope
 class ResultRepositoryImpl @Inject constructor(
-    //private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : ResultRepository {
 

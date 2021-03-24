@@ -51,6 +51,9 @@ dependencies {
 
     dagger()
     rxJava()
+    room()
+    test()
+    androidxTest()
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

@@ -5,6 +5,7 @@ import com.tatar.core.dagger.qualifier.MainThread
 import com.tatar.core.dagger.scope.ApplicationScope
 import com.tatar.data.dagger.DataModule
 import com.tatar.domain.dagger.DomainModule
+import com.tatar.local.dagger.LocalModule
 import com.tatar.presentation.dagger.module.ViewModelFactoryModule
 import com.tatar.presentation.dagger.module.ViewModelModule
 import com.tatar.presentation.viewmodel.factory.ViewModelFactory
@@ -22,7 +23,8 @@ import io.reactivex.rxjava3.core.Scheduler
         DomainModule::class,
         DataModule::class,
         RemoteModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        LocalModule::class
     ]
 )
 interface AppComponent {
