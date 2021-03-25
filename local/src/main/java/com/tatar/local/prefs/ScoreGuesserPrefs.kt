@@ -8,7 +8,7 @@ import com.tatar.local.util.getLongFromSharedPreferences
 import com.tatar.local.util.getStringFromSharedPreferences
 import com.tatar.local.util.saveToSharedPreferences
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 
@@ -47,11 +47,11 @@ class ScoreGuesserPrefs @Inject constructor(
         }
     }
 
-    fun getLastScreen(): Maybe<String> {
+    fun getLastScreen(): Single<String> {
         return prefSubject.firstOrError().getStringFromSharedPreferences(PREF_KEY_LAST_SCREEN)
     }
 
-    fun getLastRequestTime(): Maybe<Long> {
+    fun getLastRequestTime(): Single<Long> {
         return prefSubject.firstOrError().getLongFromSharedPreferences(PREF_KEY_LAST_REQUEST_TIME)
     }
 

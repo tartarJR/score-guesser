@@ -1,15 +1,15 @@
 package com.tatar.local.util
 
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 interface RoomEntityMapper<Data, RoomEntity> {
     fun mapToData(roomEntity: RoomEntity): Data
     fun mapFromData(data: Data): RoomEntity
 }
 
-fun <Data, RoomEntity> Flowable<List<RoomEntity>>.toDataList(
+fun <Data, RoomEntity> Single<List<RoomEntity>>.toDataList(
     roomEntityMapper: RoomEntityMapper<Data, RoomEntity>
-): Flowable<List<Data>> = this.map {
+): Single<List<Data>> = this.map {
     it.map { roomEntity -> roomEntityMapper.mapToData(roomEntity) }
 }
 

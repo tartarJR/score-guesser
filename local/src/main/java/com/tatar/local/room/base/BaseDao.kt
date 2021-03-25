@@ -10,6 +10,9 @@ interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(obj: T): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(obj: List<T>): Completable
+
     @Update
     fun update(obj: T): Completable
 

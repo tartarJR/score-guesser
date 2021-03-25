@@ -18,8 +18,8 @@ internal object PredictionRoomEntityMapper : RoomEntityMapper<Match, PredictionR
     override fun mapFromData(data: Match): PredictionRoomEntity {
         return PredictionRoomEntity(
             matchIdentifier = data.matchIdentifier,
-            homeTeamName = data.homeTeamName!!,
-            awayTeamName = data.awayTeamName!!,
+            homeTeamName = data.homeTeamName ?: "",
+            awayTeamName = data.awayTeamName ?: "",
             homeScorePrediction = data.homeScorePrediction,
             awayScorePrediction = data.awayScorePrediction
         )

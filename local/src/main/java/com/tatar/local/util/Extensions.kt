@@ -2,7 +2,6 @@ package com.tatar.local.util
 
 import android.content.SharedPreferences
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 fun Single<SharedPreferences>.saveToSharedPreferences(batch: SharedPreferences.Editor.() -> Unit): Completable =
@@ -12,22 +11,22 @@ fun Single<SharedPreferences>.saveToSharedPreferences(batch: SharedPreferences.E
         }
     }
 
-fun Single<SharedPreferences>.getStringFromSharedPreferences(prefsKey: String): Maybe<String> =
-    flatMapMaybe {
+fun Single<SharedPreferences>.getStringFromSharedPreferences(prefsKey: String): Single<String> =
+    flatMap {
         val stringPrefsValue = it.getString(prefsKey, null)
 
         if (stringPrefsValue == null)
-            Maybe.empty()
+            Single.error(IllegalArgumentException("Missing String value."))
         else
-            Maybe.just(stringPrefsValue)
+            Single.just(stringPrefsValue)
     }
 
-fun Single<SharedPreferences>.getLongFromSharedPreferences(prefsKey: String): Maybe<Long> =
-    flatMapMaybe {
+fun Single<SharedPreferences>.getLongFromSharedPreferences(prefsKey: String): Single<Long> =
+    flatMap {
         val longPrefsValue = it.getLong(prefsKey, -1L)
 
         if (longPrefsValue == -1L)
-            Maybe.empty()
+            Single.error(IllegalArgumentException("Missing Long value."))
         else
-            Maybe.just(longPrefsValue)
+            Single.just(longPrefsValue)
     }

@@ -12,7 +12,7 @@ import dagger.Module
 @Module
 interface DataModule {
     @Binds
-    fun bindsPredictionRepository(matchRepository: PredictionRepositoryImpl): PredictionRepository
+    fun bindsPredictionRepository(predictionRepository: PredictionRepositoryImpl): PredictionRepository
 
     @Binds
     fun bindsResultRepository(resultRepository: ResultRepositoryImpl): ResultRepository

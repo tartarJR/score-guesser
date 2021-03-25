@@ -19,7 +19,6 @@ class PredictionsDaoTest {
     private lateinit var scoreGuesserDB: ScoreGuesserDB
     private lateinit var predictionsDao: PredictionsDao
 
-
     @get:Rule
     var instantTaskExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -53,7 +52,7 @@ class PredictionsDaoTest {
             .blockingAwait()
 
         predictionsDao
-            .getPrediction("matchIdentifier")
+            .getPrediction(DEFAULT_IDENTIFIER)
             .test()
             .assertValue { entity ->
                 entity.matchIdentifier == entityToBeInserted.matchIdentifier
@@ -69,7 +68,7 @@ class PredictionsDaoTest {
             .blockingAwait()
 
         val entityToBeUpdated = PredictionRoomEntity(
-            matchIdentifier = "matchIdentifier",
+            matchIdentifier = DEFAULT_IDENTIFIER,
             homeTeamName = "u_homeTeamName",
             awayTeamName = "u_awayTeamName",
             homeScorePrediction = "u_homeScorePrediction",
@@ -78,7 +77,7 @@ class PredictionsDaoTest {
         predictionsDao.insert(entityToBeUpdated).blockingAwait()
 
         predictionsDao
-            .getPrediction("matchIdentifier")
+            .getPrediction(DEFAULT_IDENTIFIER)
             .test()
             .assertValue { entity ->
                 entity.matchIdentifier == entityToBeInserted.matchIdentifier
@@ -92,13 +91,13 @@ class PredictionsDaoTest {
         predictionsDao.insert(entityToBeInserted).blockingAwait()
 
         predictionsDao
-            .getPrediction("matchIdentifier")
+            .getPrediction(DEFAULT_IDENTIFIER)
             .subscribe { entity ->
                 predictionsDao.delete(entity).blockingAwait()
             }
 
         predictionsDao
-            .getPrediction("matchIdentifier")
+            .getPrediction(DEFAULT_IDENTIFIER)
             .test()
             .assertNoValues()
     }
@@ -135,17 +134,40 @@ class PredictionsDaoTest {
             .assertValue { it.size == 1 }
     }
 
+    @Test
+    fun insertListAndGetPredictions() {
+        val entitiesToBeInserted = listOf(
+            getTestEntity(),
+            getTestEntity("2"),
+            getTestEntity("3"),
+            getTestEntity("4")
+        )
+
+        predictionsDao
+            .insert(entitiesToBeInserted)
+            .blockingAwait()
+
+        predictionsDao
+            .getPredictions()
+            .test()
+            .assertValue { it.size == 4 }
+    }
+
     @After
     @Throws(Exception::class)
     fun closeDb() {
         scoreGuesserDB.close()
     }
 
-    private fun getTestEntity() = PredictionRoomEntity(
-        matchIdentifier = "matchIdentifier",
+    private fun getTestEntity(identifier: String = "1") = PredictionRoomEntity(
+        matchIdentifier = "matchIdentifier_$identifier",
         homeTeamName = "homeTeamName",
         awayTeamName = "awayTeamName",
         homeScorePrediction = "homeScorePrediction",
         awayScorePrediction = "awayScorePrediction"
     )
+
+    companion object {
+        private const val DEFAULT_IDENTIFIER = "matchIdentifier_1"
+    }
 }

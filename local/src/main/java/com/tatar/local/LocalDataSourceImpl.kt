@@ -10,8 +10,7 @@ import com.tatar.local.room.feature.prediction.mapper.PredictionRoomEntityMapper
 import com.tatar.local.util.fromData
 import com.tatar.local.util.toDataList
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @ApplicationScope
@@ -29,11 +28,11 @@ class LocalDataSourceImpl @Inject constructor(
         return scoreGuesserPrefs.setLastRequestTime(lastRequestTime)
     }
 
-    override fun getLastScreen(): Maybe<String> {
+    override fun getLastScreen(): Single<String> {
         return scoreGuesserPrefs.getLastScreen()
     }
 
-    override fun getLastRequestTime(): Maybe<Long> {
+    override fun getLastRequestTime(): Single<Long> {
         return scoreGuesserPrefs.getLastRequestTime()
     }
 
@@ -41,13 +40,17 @@ class LocalDataSourceImpl @Inject constructor(
         scoreGuesserPrefs.clearPrefs()
     }
 
-    override fun getPredictions(): Flowable<List<Match>> {
+    override fun getPredictions(): Single<List<Match>> {
         return predictionsDao.getPredictions()
             .toDataList(PredictionRoomEntityMapper)
     }
 
     override fun insertPrediction(prediction: Match): Completable {
         return predictionsDao.insert(prediction.fromData(PredictionRoomEntityMapper))
+    }
+
+    override fun insertPredictions(predictions: List<Match>): Completable {
+        return predictionsDao.insert(predictions.map { it.fromData(PredictionRoomEntityMapper) })
     }
 
     override fun clearDB() {
