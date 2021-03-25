@@ -4,6 +4,7 @@ import com.tatar.core.data.DataClassMapper
 import com.tatar.core.data.ErrorResult
 import com.tatar.core.data.Result
 import com.tatar.core.data.SuccessResult
+import com.tatar.data.feature.prediction.model.Match
 import com.tatar.data.feature.prediction.model.Matches
 import com.tatar.data.feature.prediction.model.MatchesError
 import com.tatar.domain.feature.prediction.entity.MatchEntity
@@ -17,15 +18,21 @@ internal object MatchesMapper :
         return when (result) {
             is SuccessResult -> SuccessResult(
                 MatchesEntity(
-                    matches = result.data.matches.map {
-                        MatchEntity(
-                            homeTeamName = it.homeTeamName,
-                            awayTeamName = it.awayTeamName
-                        )
-                    }
+                    matches = result.data.matches.map { toMatchEntity(it) }
                 )
             )
             is ErrorResult -> ErrorResult(MatchesErrorEntity)
         }
     }
+
+    internal fun toMatchEntity(it: Match) = MatchEntity(
+        homeTeamName = it.homeTeamName,
+        awayTeamName = it.awayTeamName
+    )
+
+    internal fun toMatch(it: MatchEntity) = Match(
+        matchIdentifier = it.getMatchIdentifier(),
+        homeTeamName = it.getNonNullHomeTeamName(),
+        awayTeamName = it.getNonNullAwayTeamName()
+    )
 }

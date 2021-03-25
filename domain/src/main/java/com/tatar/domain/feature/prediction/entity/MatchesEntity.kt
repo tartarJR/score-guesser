@@ -6,7 +6,9 @@ data class MatchesEntity(
 
 data class MatchEntity(
     val homeTeamName: String?,
-    val awayTeamName: String?
+    val awayTeamName: String?,
+    val homeScorePrediction: String = "",
+    val awayScorePrediction: String = ""
 ) {
     // Not really an identifier but works in this case, API is not the best
     fun getMatchIdentifier(): String {
@@ -27,5 +29,9 @@ data class MatchEntity(
 
     fun isGameDataAvailable(): Boolean {
         return !homeTeamName.isNullOrBlank() && !awayTeamName.isNullOrBlank()
+    }
+
+    fun isPredictionsMissing(): Boolean {
+        return !homeScorePrediction.isBlank() && !awayScorePrediction.isBlank()
     }
 }
