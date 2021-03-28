@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.tatar.presentation.dagger.mapkey.ViewModelKey
 import com.tatar.presentation.feature.main.MainViewModel
 import com.tatar.presentation.feature.prediction.PredictionsViewModel
+import com.tatar.presentation.feature.result.ResultsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,4 +21,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PredictionsViewModel::class)
     internal abstract fun predictionsViewModel(viewModel: PredictionsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResultsViewModel::class)
+    internal abstract fun resultsViewModel(viewModel: ResultsViewModel): ViewModel
 }

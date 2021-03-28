@@ -61,13 +61,6 @@ object Dependencies {
             const val daggerCompiler = "com.google.dagger:dagger-compiler:$version"
         }
 
-        object AssistedInject {
-            private const val version = "0.7.0"
-
-            const val assistedInject = "com.squareup.inject:assisted-inject-annotations-dagger2:$version"
-            const val assistedInjectCompiler = "com.squareup.inject:assisted-inject-processor-dagger2:$version"
-        }
-
         object Retrofit {
             private const val version = "2.9.0"
 
@@ -106,11 +99,6 @@ fun DependencyHandler.androidX() {
 fun DependencyHandler.navigation() {
     implementation(Dependencies.AndroidX.Navigation.fragment)
     implementation(Dependencies.AndroidX.Navigation.ui)
-}
-
-fun DependencyHandler.assistedInject() {
-    implementation(Dependencies.External.AssistedInject.assistedInject)
-    kapt(Dependencies.External.AssistedInject.assistedInjectCompiler)
 }
 
 fun DependencyHandler.dagger() {

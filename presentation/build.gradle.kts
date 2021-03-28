@@ -54,7 +54,6 @@ dependencies {
 
     dagger()
     rxJava()
-    assistedInject()
     lifecycle()
 }
 
