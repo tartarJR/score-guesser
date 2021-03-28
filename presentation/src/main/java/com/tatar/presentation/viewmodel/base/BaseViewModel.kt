@@ -15,12 +15,12 @@ abstract class BaseViewModel : ViewModel() {
     private val _navigationEvent = MutableLiveData<Event<Route>>()
     private val _navigationBackEvent = MutableLiveData<Event<Unit>>()
     private val _showError = MutableLiveData<Event<TextResourceError>>()
-    private val _showLegalDialog = MutableLiveData<Event<Unit>>()
+    private val _showToast = MutableLiveData<Event<TextResource>>()
 
     val navigationEvent: LiveData<Event<Route>> get() = _navigationEvent
     val navigationBackEvent: LiveData<Event<Unit>> get() = _navigationBackEvent
     val showError: LiveData<Event<TextResourceError>> get() = _showError
-    val showLegalDialog: LiveData<Event<Unit>> get() = _showLegalDialog
+    val showToast: LiveData<Event<TextResource>> get() = _showToast
 
     private val disposables = CompositeDisposable()
 
@@ -40,8 +40,8 @@ abstract class BaseViewModel : ViewModel() {
         _showError.postValue(Event(TextResourceError(errorMessage, errorInfo)))
     }
 
-    protected fun showLegalDialog() {
-        _showLegalDialog.postValue(Event(Unit))
+    protected fun showToast(textResource: TextResource) {
+        _showToast.postValue(Event(textResource))
     }
 
     override fun onCleared() {
