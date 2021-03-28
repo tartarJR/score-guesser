@@ -68,6 +68,9 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
 
         viewModel.state.mapDistinct { it.matches }
             .observe(viewLifecycleOwner, { matchesAdapter.submitList(it) })
+
+        viewModel.state.mapDistinct { it.isResultsButtonVisible }
+            .observe(viewLifecycleOwner, { binding.resultsTv.isVisible = it })
     }
 
     private fun observeEvents() {
@@ -80,6 +83,7 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
 
     private fun bindInteractions(binding: FragmentPredictionsBinding) {
         binding.resultsTv.setOnClickListener { viewModel.onResultsClicked() }
+        binding.errorTv.setOnClickListener { viewModel.makePredictionsCall() }
     }
 
     override fun onPredictionsEntered(
@@ -92,5 +96,15 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
             homeTeamScore,
             awayTeamScore
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onViewResumed()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.onViewPaused()
     }
 }

@@ -41,8 +41,22 @@ class PredictionsViewModel @Inject internal constructor(
     private val _showPredictionDialog = MutableLiveData<Event<MatchModel>>()
     val showPredictionDialog: LiveData<Event<MatchModel>> get() = _showPredictionDialog
 
+    private var hasNavigatedToResults = false
+
     init {
         makeLastScreenCall()
+    }
+
+    fun onViewResumed() {
+        if (hasNavigatedToResults) {
+            makePredictionsCall()
+            hasNavigatedToResults = false
+        }
+
+    }
+
+    fun onViewPaused() {
+
     }
 
     private fun makeLastScreenCall() {
@@ -60,7 +74,10 @@ class PredictionsViewModel @Inject internal constructor(
     private fun onLastScreenResult(lastScreenModel: LastScreenModel) {
         when (lastScreenModel) {
             PredictionsScreen -> makePredictionsCall()
-            ResultsScreen -> navigateTo(PredictionsToResults)
+            ResultsScreen -> {
+                hasNavigatedToResults = true
+                navigateTo(PredictionsToResults)
+            }
         }
     }
 
@@ -69,7 +86,7 @@ class PredictionsViewModel @Inject internal constructor(
         makePredictionsCall()
     }
 
-    private fun makePredictionsCall() {
+    fun makePredictionsCall() {
         getMatchesUseCase()
             .toNewModel(MatchesEntityMapper)
             .doOnSubscribe { onRequestStarted() }
@@ -117,6 +134,7 @@ class PredictionsViewModel @Inject internal constructor(
 
     fun onResultsClicked() {
         // TODO add predictions param
+        hasNavigatedToResults = true
         navigateTo(PredictionsToResults)
     }
 
