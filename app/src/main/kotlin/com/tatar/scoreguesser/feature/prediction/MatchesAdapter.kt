@@ -48,6 +48,8 @@ class MatchesAdapter @Inject constructor() :
         fun bind(item: MatchModel) {
             binding.homeTeamTv.text = item.homeTeamName
             binding.awayTeamTv.text = item.awayTeamName
+            binding.homeTeamScoreTv.text = item.homeTeamScore
+            binding.awayTeamScoreTv.text = item.awayTeamScore
         }
     }
 

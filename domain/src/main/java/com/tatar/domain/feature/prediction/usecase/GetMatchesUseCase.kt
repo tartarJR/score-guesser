@@ -5,6 +5,7 @@ import com.tatar.core.dagger.qualifier.MainThread
 import com.tatar.core.data.Result
 import com.tatar.core.data.SuccessResult
 import com.tatar.domain.base.SingleUseCase
+import com.tatar.domain.feature.prediction.entity.MatchEntity
 import com.tatar.domain.feature.prediction.entity.MatchesEntity
 import com.tatar.domain.feature.prediction.entity.MatchesErrorEntity
 import com.tatar.domain.feature.prediction.repository.PredictionRepository
@@ -12,6 +13,7 @@ import com.tatar.domain.feature.prediction.repository.SettingsRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.kotlin.Singles
 import javax.inject.Inject
 
 class GetMatchesUseCase @Inject internal constructor(
@@ -37,29 +39,49 @@ class GetMatchesUseCase @Inject internal constructor(
     }
 
     private fun getPredictionsRemotely(): Single<Result<MatchesEntity, MatchesErrorEntity>> {
-        return predictionRepository.getMatches()
-            .flatMap { onMatchesResult(it) }
+        return Singles.zip(
+            predictionRepository.getMatches(),
+            predictionRepository.getMatchesLocally()
+        ).flatMap { onPredictionsResult(it.first, it.second) }
     }
 
-    private fun onMatchesResult(it: Result<MatchesEntity, MatchesErrorEntity>): Single<Result<MatchesEntity, MatchesErrorEntity>> {
-        return onPredictionsResult(it).andThen(Single.just(it))
-    }
+    private fun onPredictionsResult(
+        remoteResult: Result<MatchesEntity, MatchesErrorEntity>,
+        localResult: List<MatchEntity>
+    ): Single<Result<MatchesEntity, MatchesErrorEntity>> {
+        return if (remoteResult is SuccessResult) {
+            val combinedEntity = MatchesEntity(getCombinedMatches(remoteResult, localResult))
+            val combinedResult = remoteResult.copy(data = combinedEntity)
 
-    private fun onPredictionsResult(result: Result<MatchesEntity, MatchesErrorEntity>): Completable {
-        return if (result is SuccessResult) {
-            val filteredMatches = result.data
-                .matches
-                .filter { it.isGameDataAvailable() }
-
-            Completable.merge(
-                listOf(
-                    settingsRepository.setLastRequestTime(System.currentTimeMillis()),
-                    predictionRepository.saveMatchesLocally(filteredMatches)
-                )
-            )
+            onResultCombined(combinedEntity).andThen(Single.just(combinedResult))
         } else {
-            Completable.complete()
+            Single.just(remoteResult)
         }
+    }
+
+    private fun getCombinedMatches(
+        remoteResult: SuccessResult<MatchesEntity, MatchesErrorEntity>,
+        localResult: List<MatchEntity>
+    ): List<MatchEntity> {
+        val filteredMatches = remoteResult.data
+            .matches
+            .filter { it.isGameDataAvailable() }
+
+        return filteredMatches.map { remote ->
+            val local = localResult.find { local -> local.getMatchIdentifier() == remote.getMatchIdentifier() }
+
+            if (remote.getMatchIdentifier() == local?.getMatchIdentifier()) local
+            else remote
+        }
+    }
+
+    private fun onResultCombined(combinedEntity: MatchesEntity): Completable {
+        return Completable.merge(
+            listOf(
+                settingsRepository.setLastRequestTime(System.currentTimeMillis()),
+                predictionRepository.saveMatchesLocally(combinedEntity.matches)
+            )
+        )
     }
 
     private fun getPredictionsLocally(): Single<Result<MatchesEntity, MatchesErrorEntity>> {

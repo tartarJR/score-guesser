@@ -21,12 +21,10 @@ internal object MatchesEntityMapper :
     }
 
     private fun mapToSuccessModel(result: SuccessResult<MatchesEntity, MatchesErrorEntity>): SuccessResult<MatchesModel, MatchesErrorModel> {
-        val filteredMatches = result.data.matches.filter { it.isGameDataAvailable() }
-
         return SuccessResult(
             MatchesModel(
-                isEmpty = filteredMatches.isEmpty(),
-                matches = filteredMatches.map {
+                isEmpty = result.data.getFilteredMatches().isEmpty(),
+                matches = result.data.getFilteredMatches().map {
                     MatchModel(
                         matchIdentifier = it.getMatchIdentifier(),
                         homeTeamName = it.getNonNullHomeTeamName(),
@@ -34,7 +32,8 @@ internal object MatchesEntityMapper :
                         homeTeamScore = it.homeScorePrediction,
                         awayTeamScore = it.awayScorePrediction
                     )
-                }
+                },
+                isResultsButtonVisible = result.data.hasPredictions()
             )
         )
     }

@@ -9,7 +9,7 @@ class MatchesListItemDiffCallback : DiffUtil.ItemCallback<MatchModel>() {
         oldItem: MatchModel,
         newItem: MatchModel
     ): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.matchIdentifier == newItem.matchIdentifier
     }
 
     override fun areContentsTheSame(

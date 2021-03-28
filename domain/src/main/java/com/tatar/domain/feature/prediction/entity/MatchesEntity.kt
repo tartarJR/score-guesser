@@ -2,7 +2,16 @@ package com.tatar.domain.feature.prediction.entity
 
 data class MatchesEntity(
     val matches: List<MatchEntity>
-)
+) {
+    fun getFilteredMatches(): List<MatchEntity> {
+        return matches.filter { it.isGameDataAvailable() }
+            .sortedBy { it.homeTeamName }
+    }
+
+    fun hasPredictions(): Boolean {
+        return getFilteredMatches().any { it.hasPredictions() }
+    }
+}
 
 data class MatchEntity(
     val homeTeamName: String?,
@@ -31,7 +40,7 @@ data class MatchEntity(
         return !homeTeamName.isNullOrBlank() && !awayTeamName.isNullOrBlank()
     }
 
-    fun isPredictionsMissing(): Boolean {
+    fun hasPredictions(): Boolean {
         return homeScorePrediction.isNotBlank() && awayScorePrediction.isNotBlank()
     }
 }

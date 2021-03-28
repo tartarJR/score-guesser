@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tatar.presentation.feature.prediction.PredictionsViewModel
+import com.tatar.presentation.util.EventObserver
 import com.tatar.presentation.viewmodel.factory.withFactory
 import com.tatar.scoreguesser.R
 import com.tatar.scoreguesser.ScoreGuesserApplication
@@ -14,7 +15,8 @@ import com.tatar.scoreguesser.databinding.FragmentPredictionsBinding
 import com.tatar.scoreguesser.util.mapDistinct
 import javax.inject.Inject
 
-class PredictionsFragment : BaseFragment(R.layout.fragment_predictions) {
+class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
+    PredictionDialogFragment.PredictionDialogListener {
 
     @Inject
     lateinit var matchesAdapter: MatchesAdapter
@@ -33,7 +35,7 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions) {
 
         setUpView(binding)
         observeState(binding)
-        observeEvents(binding)
+        observeEvents()
         bindInteractions(binding)
     }
 
@@ -68,11 +70,27 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions) {
             .observe(viewLifecycleOwner, { matchesAdapter.submitList(it) })
     }
 
-    private fun observeEvents(binding: FragmentPredictionsBinding) {
-
+    private fun observeEvents() {
+        viewModel.showPredictionDialog.observe(viewLifecycleOwner, EventObserver {
+            val dialog = PredictionDialogFragment(it)
+            dialog.setTargetFragment(this, 13)
+            dialog.show(parentFragmentManager, "PredictionDialogFragment")
+        })
     }
 
     private fun bindInteractions(binding: FragmentPredictionsBinding) {
         binding.resultsTv.setOnClickListener { viewModel.onResultsClicked() }
+    }
+
+    override fun onPredictionsEntered(
+        matchIdentifier: String,
+        homeTeamScore: String,
+        awayTeamScore: String
+    ) {
+        viewModel.onPredictionsApplied(
+            matchIdentifier,
+            homeTeamScore,
+            awayTeamScore
+        )
     }
 }

@@ -2,7 +2,8 @@ package com.tatar.presentation.feature.prediction.model
 
 data class MatchesModel(
     val isEmpty: Boolean,
-    val matches: List<MatchModel>
+    val matches: List<MatchModel>,
+    val isResultsButtonVisible: Boolean
 )
 
 data class MatchModel(

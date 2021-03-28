@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/home_team_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Galatasaray" />
+
+    <TextView
+        android:id="@+id/home_team_score_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/prediction_pop_up_initial_score"
+        app:layout_constraintEnd_toEndOf="@+id/home_team_tv"
+        app:layout_constraintStart_toStartOf="@+id/home_team_tv"
+        app:layout_constraintTop_toBottomOf="@+id/home_team_tv"
+        tools:text="5" />
+
+    <TextView
+        android:id="@+id/home_team_score_up_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/prediction_pop_up_action_increase_score"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_team_score_tv"
+        app:layout_constraintStart_toEndOf="@+id/home_team_score_tv"
+        app:layout_constraintTop_toTopOf="@+id/home_team_score_tv" />
+
+    <TextView
+        android:id="@+id/home_team_score_down_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/prediction_pop_up_action_decrease_score"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_team_score_tv"
+        app:layout_constraintEnd_toStartOf="@+id/home_team_score_tv"
+        app:layout_constraintTop_toTopOf="@+id/home_team_score_tv" />
+
+
+    <TextView
+        android:id="@+id/away_team_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_team_score_down_tv"
+        tools:text="Fenerbahce" />
+
+    <TextView
+        android:id="@+id/away_team_score_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/prediction_pop_up_initial_score"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/away_team_tv"
+        app:layout_constraintStart_toStartOf="@+id/away_team_tv"
+        app:layout_constraintTop_toBottomOf="@+id/away_team_tv"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/away_team_score_up_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/prediction_pop_up_action_increase_score"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/away_team_score_tv"
+        app:layout_constraintStart_toEndOf="@+id/away_team_score_tv"
+        app:layout_constraintTop_toTopOf="@+id/away_team_score_tv" />
+
+    <TextView
+        android:id="@+id/away_team_score_down_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/prediction_pop_up_action_decrease_score"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/away_team_score_tv"
+        app:layout_constraintEnd_toStartOf="@+id/away_team_score_tv"
+        app:layout_constraintTop_toTopOf="@+id/away_team_score_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
