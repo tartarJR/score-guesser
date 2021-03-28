@@ -2,7 +2,7 @@ package com.tatar.data.feature.prediction.repository
 
 import com.tatar.core.dagger.scope.ApplicationScope
 import com.tatar.data.source.LocalDataSource
-import com.tatar.domain.feature.prediction.repository.SettingsRepository
+import com.tatar.domain.repository.SettingsRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject

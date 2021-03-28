@@ -1,4 +1,4 @@
-package com.tatar.domain.feature.prediction.repository
+package com.tatar.domain.repository
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single

@@ -6,7 +6,7 @@ import com.tatar.core.data.Result
 import com.tatar.domain.base.SingleUseCase
 import com.tatar.domain.feature.result.entity.MatchResultsEntity
 import com.tatar.domain.feature.result.entity.MatchResultsErrorEntity
-import com.tatar.domain.feature.result.repository.ResultRepository
+import com.tatar.domain.repository.ResultRepository
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject

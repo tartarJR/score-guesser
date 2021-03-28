@@ -7,7 +7,7 @@ import com.tatar.data.feature.result.mapper.MatchResultsMapper
 import com.tatar.data.source.RemoteDataSource
 import com.tatar.domain.feature.result.entity.MatchResultsEntity
 import com.tatar.domain.feature.result.entity.MatchResultsErrorEntity
-import com.tatar.domain.feature.result.repository.ResultRepository
+import com.tatar.domain.repository.ResultRepository
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

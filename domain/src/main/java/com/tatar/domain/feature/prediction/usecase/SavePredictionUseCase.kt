@@ -3,7 +3,7 @@ package com.tatar.domain.feature.prediction.usecase
 import com.tatar.core.dagger.qualifier.BackgroundThread
 import com.tatar.core.dagger.qualifier.MainThread
 import com.tatar.domain.base.CompletableUseCase
-import com.tatar.domain.feature.prediction.repository.PredictionRepository
+import com.tatar.domain.repository.PredictionRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
 import javax.inject.Inject

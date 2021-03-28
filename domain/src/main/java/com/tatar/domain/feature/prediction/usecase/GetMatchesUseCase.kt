@@ -8,8 +8,8 @@ import com.tatar.domain.base.SingleUseCase
 import com.tatar.domain.feature.prediction.entity.MatchEntity
 import com.tatar.domain.feature.prediction.entity.MatchesEntity
 import com.tatar.domain.feature.prediction.entity.MatchesErrorEntity
-import com.tatar.domain.feature.prediction.repository.PredictionRepository
-import com.tatar.domain.feature.prediction.repository.SettingsRepository
+import com.tatar.domain.repository.PredictionRepository
+import com.tatar.domain.repository.SettingsRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single

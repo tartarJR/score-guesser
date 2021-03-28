@@ -1,4 +1,4 @@
-package com.tatar.domain.feature.result.repository
+package com.tatar.domain.repository
 
 import com.tatar.core.data.Result
 import com.tatar.domain.feature.result.entity.MatchResultsEntity
