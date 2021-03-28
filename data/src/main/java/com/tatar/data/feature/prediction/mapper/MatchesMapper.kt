@@ -25,14 +25,18 @@ internal object MatchesMapper :
         }
     }
 
-    internal fun toMatchEntity(it: Match) = MatchEntity(
-        homeTeamName = it.homeTeamName,
-        awayTeamName = it.awayTeamName
+    internal fun toMatchEntity(match: Match) = MatchEntity(
+        homeTeamName = match.homeTeamName,
+        awayTeamName = match.awayTeamName,
+        homeScorePrediction = match.homeScorePrediction,
+        awayScorePrediction = match.awayScorePrediction
     )
 
-    internal fun toMatch(it: MatchEntity) = Match(
-        matchIdentifier = it.getMatchIdentifier(),
-        homeTeamName = it.getNonNullHomeTeamName(),
-        awayTeamName = it.getNonNullAwayTeamName()
+    internal fun toMatch(entity: MatchEntity) = Match(
+        matchIdentifier = entity.getMatchIdentifier(),
+        homeTeamName = entity.getNonNullHomeTeamName(),
+        awayTeamName = entity.getNonNullAwayTeamName(),
+        homeScorePrediction = entity.homeScorePrediction,
+        awayScorePrediction = entity.awayScorePrediction
     )
 }

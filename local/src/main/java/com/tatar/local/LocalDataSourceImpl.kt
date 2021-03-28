@@ -45,6 +45,11 @@ class LocalDataSourceImpl @Inject constructor(
             .toDataList(PredictionRoomEntityMapper)
     }
 
+    override fun getPrediction(mathIdentifier: String): Single<Match> {
+        return predictionsDao.getPrediction(mathIdentifier)
+            .map { PredictionRoomEntityMapper.mapToData(it) }
+    }
+
     override fun insertPrediction(prediction: Match): Completable {
         return predictionsDao.insert(prediction.fromData(PredictionRoomEntityMapper))
     }

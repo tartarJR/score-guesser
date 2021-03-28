@@ -32,6 +32,6 @@ data class MatchEntity(
     }
 
     fun isPredictionsMissing(): Boolean {
-        return !homeScorePrediction.isBlank() && !awayScorePrediction.isBlank()
+        return homeScorePrediction.isNotBlank() && awayScorePrediction.isNotBlank()
     }
 }

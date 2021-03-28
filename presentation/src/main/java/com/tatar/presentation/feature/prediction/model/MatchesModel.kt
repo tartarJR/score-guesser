@@ -6,7 +6,9 @@ data class MatchesModel(
 )
 
 data class MatchModel(
-    val id: String,
-    val homeTeamName: String?,
-    val awayTeamName: String?
+    val matchIdentifier: String,
+    val homeTeamName: String,
+    val awayTeamName: String,
+    val homeTeamScore: String = "",
+    val awayTeamScore: String = ""
 )

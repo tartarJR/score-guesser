@@ -28,9 +28,11 @@ internal object MatchesEntityMapper :
                 isEmpty = filteredMatches.isEmpty(),
                 matches = filteredMatches.map {
                     MatchModel(
-                        id = it.getMatchIdentifier(),
+                        matchIdentifier = it.getMatchIdentifier(),
                         homeTeamName = it.getNonNullHomeTeamName(),
-                        awayTeamName = it.getNonNullAwayTeamName()
+                        awayTeamName = it.getNonNullAwayTeamName(),
+                        homeTeamScore = it.homeScorePrediction,
+                        awayTeamScore = it.awayScorePrediction
                     )
                 }
             )

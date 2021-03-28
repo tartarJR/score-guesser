@@ -27,6 +27,11 @@ class PredictionRepositoryImpl @Inject constructor(
             .toNewModel(MatchesMapper)
     }
 
+    override fun getMatchLocally(matchIdentifier: String): Single<MatchEntity> {
+        return localDataSource.getPrediction(matchIdentifier)
+            .map { toMatchEntity(it) }
+    }
+
     override fun getMatchesLocally(): Single<List<MatchEntity>> {
         return localDataSource.getPredictions()
             .map { it.map { match -> toMatchEntity(match) } }
