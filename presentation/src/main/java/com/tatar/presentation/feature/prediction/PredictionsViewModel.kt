@@ -52,11 +52,6 @@ class PredictionsViewModel @Inject internal constructor(
             makePredictionsCall()
             hasNavigatedToResults = false
         }
-
-    }
-
-    fun onViewPaused() {
-
     }
 
     private fun makeLastScreenCall() {
@@ -133,7 +128,6 @@ class PredictionsViewModel @Inject internal constructor(
     }
 
     fun onResultsClicked() {
-        // TODO add predictions param
         hasNavigatedToResults = true
         navigateTo(PredictionsToResults)
     }

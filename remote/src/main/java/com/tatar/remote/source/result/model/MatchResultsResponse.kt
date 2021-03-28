@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 sealed class MatchResultsResponse
 
 data class MatchResultsSuccessResponse(
-    val matchResults: List<MatchResultResponse>
+    @Json(name = "matches") val matchResults: List<MatchResultResponse>
 ) : MatchResultsResponse()
 
 data class MatchResultResponse(

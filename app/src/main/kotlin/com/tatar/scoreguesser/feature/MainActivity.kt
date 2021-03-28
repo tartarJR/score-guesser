@@ -5,7 +5,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.tatar.presentation.feature.main.MainViewModel
 import com.tatar.presentation.viewmodel.factory.ViewModelFactory
-import com.tatar.presentation.viewmodel.factory.withFactory
 import com.tatar.scoreguesser.ScoreGuesserApplication
 import com.tatar.scoreguesser.base.FragmentActivityActions
 import com.tatar.scoreguesser.databinding.ActivityMainBinding
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity(), FragmentActivityActions {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: MainViewModel by viewModels { withFactory(viewModelFactory) }
+    private val viewModel: MainViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

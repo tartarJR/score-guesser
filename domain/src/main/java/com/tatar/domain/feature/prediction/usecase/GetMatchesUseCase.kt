@@ -63,9 +63,7 @@ class GetMatchesUseCase @Inject internal constructor(
         remoteResult: SuccessResult<MatchesEntity, MatchesErrorEntity>,
         localResult: List<MatchEntity>
     ): List<MatchEntity> {
-        val filteredMatches = remoteResult.data
-            .matches
-            .filter { it.isGameDataAvailable() }
+        val filteredMatches = remoteResult.data.getFilteredMatches()
 
         return filteredMatches.map { remote ->
             val local = localResult.find { local -> local.getMatchIdentifier() == remote.getMatchIdentifier() }

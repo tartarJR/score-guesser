@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tatar.presentation.feature.prediction.PredictionsViewModel
 import com.tatar.presentation.util.EventObserver
-import com.tatar.presentation.viewmodel.factory.withFactory
 import com.tatar.scoreguesser.R
 import com.tatar.scoreguesser.ScoreGuesserApplication
 import com.tatar.scoreguesser.base.BaseFragment
@@ -21,7 +20,7 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
     @Inject
     lateinit var matchesAdapter: MatchesAdapter
 
-    override val viewModel: PredictionsViewModel by viewModels { withFactory(viewModelFactory) }
+    override val viewModel: PredictionsViewModel by viewModels { viewModelFactory }
 
     override fun provideDependencies() {
         DaggerPredictionsComponent.factory()
@@ -101,10 +100,5 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
     override fun onResume() {
         super.onResume()
         viewModel.onViewResumed()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.onViewPaused()
     }
 }

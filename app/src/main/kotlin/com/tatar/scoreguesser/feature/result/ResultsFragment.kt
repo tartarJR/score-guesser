@@ -2,7 +2,6 @@ package com.tatar.scoreguesser.feature.result
 
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import com.tatar.presentation.feature.result.ResultsViewModel
 import com.tatar.presentation.viewmodel.factory.withFactory

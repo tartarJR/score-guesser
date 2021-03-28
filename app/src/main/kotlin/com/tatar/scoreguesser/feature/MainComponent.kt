@@ -1,10 +1,10 @@
 package com.tatar.scoreguesser.feature
 
-import com.tatar.core.dagger.scope.FragmentScope
+import com.tatar.core.dagger.scope.ActivityScope
 import com.tatar.scoreguesser.dagger.AppComponent
 import dagger.Component
 
-@FragmentScope
+@ActivityScope
 @Component(dependencies = [AppComponent::class])
 interface MainComponent {
     fun inject(mainActivity: MainActivity)

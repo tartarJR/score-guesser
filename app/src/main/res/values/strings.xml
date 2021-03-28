@@ -5,22 +5,23 @@
     <string name="general_error_unknown">Something went wrong. Please tap here to try again.</string>
     <string name="general_error_network">Please check your network connection.</string>
     <string name="general_error_no_items">Nothing to display atm, please try again later.</string>
+    <string name="score_separator">---</string>
 
     <!-- Prediction -->
     <string name="predictions_action_results">See Results</string>
     <string name="predictions_error_save">Unable to save prediction,please try again later.</string>
     <string name="predictions_success_save">Prediction has been saved.</string>
 
-    <!-- Results -->
-    <string name="results_action_restart">Restart</string>
-    <string name="results_error_restart_failed">Unable to restart predictions, please try again later</string>
-
     <!-- Prediction Pop-Up -->
     <string name="prediction_pop_up_action_increase_score">+</string>
     <string name="prediction_pop_up_action_decrease_score">-</string>
     <string name="prediction_pop_up_initial_score">0</string>
     <string name="prediction_pop_up_action_enter">ENTER</string>
-    <string name="prediction_pop_up_action_cancel">CANCEL</string>
+    <string name="prediction_pop_up_action_cancel">Cancel</string>
     <string name="prediction_pop_up_title">Prediction</string>
+
+    <!-- Results -->
+    <string name="results_action_restart">Restart</string>
+    <string name="results_error_restart_failed">Unable to restart predictions, please try again later</string>
 
 </resources>

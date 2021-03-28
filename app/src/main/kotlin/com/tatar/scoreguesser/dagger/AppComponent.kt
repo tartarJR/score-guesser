@@ -27,7 +27,7 @@ import io.reactivex.rxjava3.core.Scheduler
 )
 interface AppComponent {
 
-    fun genericSavedStateViewModelFactory(): ViewModelFactory
+    fun viewModelFactory(): ViewModelFactory
 
     @Component.Factory
     interface Factory {

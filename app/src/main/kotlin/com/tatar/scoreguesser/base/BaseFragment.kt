@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.tatar.presentation.resource.navigation.Route
 import com.tatar.presentation.resource.text.TextResource
-import com.tatar.presentation.resource.text.TextResourceError
 import com.tatar.presentation.util.EventObserver
 import com.tatar.presentation.viewmodel.base.BaseViewModel
 import com.tatar.presentation.viewmodel.factory.ViewModelFactory
