@@ -5,6 +5,7 @@ data class MatchesEntity(
 ) {
     fun getFilteredMatches(): List<MatchEntity> {
         return matches.filter { it.isGameDataAvailable() }
+            .filter { !it.isPredictionDataCorrupted() }
             .sortedBy { it.homeTeamName }
     }
 
@@ -42,5 +43,14 @@ data class MatchEntity(
 
     fun hasPredictions(): Boolean {
         return homeScorePrediction.isNotBlank() && awayScorePrediction.isNotBlank()
+    }
+
+    fun isPredictionDataCorrupted(): Boolean {
+        val homeScore = homeScorePrediction.toIntOrNull()
+        val awayScore = awayScorePrediction.toIntOrNull()
+
+        return if (homeScore == null || awayScore == null) return false
+        else if (homeScore < 0 || awayScore < 0) return true
+        else false
     }
 }
