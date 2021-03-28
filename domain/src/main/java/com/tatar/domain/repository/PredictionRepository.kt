@@ -13,4 +13,5 @@ interface PredictionRepository {
     fun getMatchesLocally(): Single<List<MatchEntity>>
     fun saveMatchesLocally(matches: List<MatchEntity>): Completable
     fun saveMatchLocally(match: MatchEntity): Completable
+    fun clearPredictions()
 }

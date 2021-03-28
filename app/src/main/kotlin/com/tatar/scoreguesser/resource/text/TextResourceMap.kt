@@ -8,5 +8,6 @@ fun TextResource.resourceId(): Int {
         TextResource.GENERAL_ERROR_NETWORK -> R.string.general_error_network
         TextResource.SAVE_PREDICTION_ERROR -> R.string.predictions_error_save
         TextResource.SAVE_PREDICTION_SUCCESS -> R.string.predictions_success_save
+        TextResource.RESET_DATA_ERROR -> R.string.results_error_restart_failed
     }
 }

@@ -13,6 +13,7 @@
 
     <!-- Results -->
     <string name="results_action_restart">Restart</string>
+    <string name="results_error_restart_failed">Unable to restart predictions, please try again later</string>
 
     <!-- Prediction Pop-Up -->
     <string name="prediction_pop_up_action_increase_score">+</string>

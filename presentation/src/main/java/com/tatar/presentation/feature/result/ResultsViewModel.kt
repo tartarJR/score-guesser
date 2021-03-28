@@ -1,32 +1,35 @@
 package com.tatar.presentation.feature.result
 
-import androidx.lifecycle.SavedStateHandle
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import com.tatar.domain.base.invoke
 import com.tatar.domain.feature.result.usecase.GetResultsUseCase
+import com.tatar.domain.feature.result.usecase.ResetPredictionsUseCase
+import com.tatar.presentation.resource.text.TextResource
 import com.tatar.presentation.viewmodel.base.StatefulViewModel
-import com.tatar.presentation.viewmodel.factory.ViewModelAssistedFactory
+import javax.inject.Inject
 
-class ResultsViewModel @AssistedInject constructor(
-    @Assisted private val handle: SavedStateHandle,
+class ResultsViewModel @Inject constructor(
     private val getResultsUseCase: GetResultsUseCase,
+    private val resetPredictionsUseCase: ResetPredictionsUseCase
 ) : StatefulViewModel<ResultsViewModel.State>(State()) {
-
-    @AssistedInject.Factory
-    interface Factory : ViewModelAssistedFactory<ResultsViewModel> {
-        override fun create(handle: SavedStateHandle): ResultsViewModel
-    }
 
     data class State(
         val isLoading: Boolean = false,
     )
 
     fun onRestartClicked() {
-        // TODO reset local data/cache
+        resetPredictionsUseCase.invoke()
+            .subscribe(
+                { onResetPredictionsResult() },
+                { onResetPredictionError() }
+            )
+            .addToDisposables()
+    }
+
+    private fun onResetPredictionsResult() {
         navigateBack()
     }
 
-    companion object {
-        const val ARGUMENT_PREDICTIONS = "ARGUMENT_PREDICTIONS"
+    private fun onResetPredictionError() {
+        showError(TextResource.RESET_DATA_ERROR)
     }
 }

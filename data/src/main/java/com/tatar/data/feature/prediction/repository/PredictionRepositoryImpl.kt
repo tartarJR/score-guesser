@@ -44,4 +44,8 @@ class PredictionRepositoryImpl @Inject constructor(
     override fun saveMatchLocally(match: MatchEntity): Completable {
         return localDataSource.insertPrediction(toMatch(match))
     }
+
+    override fun clearPredictions() {
+        return localDataSource.clearDB()
+    }
 }

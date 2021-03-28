@@ -27,4 +27,8 @@ class SettingsRepositoryImpl @Inject constructor(
     override fun setLastScreen(lastScreen: String): Completable {
         return localDataSource.setLastScreen(lastScreen)
     }
+
+    override fun clearSettings() {
+        return localDataSource.clearPrefs()
+    }
 }

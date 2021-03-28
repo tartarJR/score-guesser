@@ -8,4 +8,5 @@ interface SettingsRepository {
     fun getLastScreen(): Single<String>
     fun setLastRequestTime(lastRequestTime: Long): Completable
     fun setLastScreen(lastScreen: String): Completable
+    fun clearSettings()
 }
