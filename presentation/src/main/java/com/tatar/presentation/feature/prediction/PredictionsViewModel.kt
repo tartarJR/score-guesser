@@ -6,8 +6,13 @@ import com.tatar.core.data.Result
 import com.tatar.core.data.SuccessResult
 import com.tatar.core.data.toNewModel
 import com.tatar.domain.base.invoke
+import com.tatar.domain.feature.main.GetLastScreenUseCase
 import com.tatar.domain.feature.prediction.usecase.GetMatchesUseCase
 import com.tatar.domain.feature.prediction.usecase.SavePredictionUseCase
+import com.tatar.presentation.feature.main.mapper.LastScreenEntityMapper
+import com.tatar.presentation.feature.main.model.LastScreenModel
+import com.tatar.presentation.feature.main.model.PredictionsScreen
+import com.tatar.presentation.feature.main.model.ResultsScreen
 import com.tatar.presentation.feature.prediction.mapper.MatchesEntityMapper
 import com.tatar.presentation.feature.prediction.model.MatchModel
 import com.tatar.presentation.feature.prediction.model.MatchesErrorModel
@@ -20,7 +25,8 @@ import javax.inject.Inject
 
 class PredictionsViewModel @Inject internal constructor(
     private val getMatchesUseCase: GetMatchesUseCase,
-    private val savePredictionUseCase: SavePredictionUseCase
+    private val savePredictionUseCase: SavePredictionUseCase,
+    private val getLastScreenUseCase: GetLastScreenUseCase
 ) : StatefulViewModel<PredictionsViewModel.State>(State()) {
 
     data class State(
@@ -36,6 +42,30 @@ class PredictionsViewModel @Inject internal constructor(
     val showPredictionDialog: LiveData<Event<MatchModel>> get() = _showPredictionDialog
 
     init {
+        makeLastScreenCall()
+    }
+
+    private fun makeLastScreenCall() {
+        getLastScreenUseCase()
+            .map { LastScreenEntityMapper.mapToModel(it) }
+            .doOnSubscribe { onRequestStarted() }
+            .doFinally { onRequestFinished() }
+            .subscribe(
+                { onLastScreenResult(it) },
+                { onLastScreenError(it) }
+            )
+            .addToDisposables()
+    }
+
+    private fun onLastScreenResult(lastScreenModel: LastScreenModel) {
+        when (lastScreenModel) {
+            PredictionsScreen -> makePredictionsCall()
+            ResultsScreen -> navigateTo(PredictionsToResults)
+        }
+    }
+
+    private fun onLastScreenError(error: Throwable) {
+        error.printStackTrace()
         makePredictionsCall()
     }
 
