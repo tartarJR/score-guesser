@@ -82,7 +82,7 @@ class PredictionsFragment : BaseFragment(R.layout.fragment_predictions),
 
     private fun bindInteractions(binding: FragmentPredictionsBinding) {
         binding.resultsTv.setOnClickListener { viewModel.onResultsClicked() }
-        binding.errorTv.setOnClickListener { viewModel.makePredictionsCall() }
+        binding.errorTv.setOnClickListener { viewModel.onTryAgainClicked() }
     }
 
     override fun onPredictionsEntered(

@@ -67,6 +67,6 @@ class ResultsFragment : BaseFragment(R.layout.fragment_results) {
 
     private fun bindInteractions(binding: FragmentResultsBinding) {
         binding.restartTv.setOnClickListener { viewModel.onRestartClicked() }
-        binding.errorTv.setOnClickListener { viewModel.makeResultsCall() }
+        binding.errorTv.setOnClickListener { viewModel.onTryAgainClicked() }
     }
 }

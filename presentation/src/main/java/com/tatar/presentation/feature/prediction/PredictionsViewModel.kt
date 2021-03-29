@@ -81,7 +81,9 @@ class PredictionsViewModel @Inject internal constructor(
         makePredictionsCall()
     }
 
-    fun makePredictionsCall() {
+    fun onTryAgainClicked() = makePredictionsCall()
+
+    private fun makePredictionsCall() {
         getMatchesUseCase()
             .toNewModel(MatchesEntityMapper)
             .doOnSubscribe { onRequestStarted() }

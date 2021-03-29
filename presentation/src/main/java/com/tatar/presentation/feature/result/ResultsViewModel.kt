@@ -31,7 +31,9 @@ class ResultsViewModel @Inject constructor(
         makeResultsCall()
     }
 
-    fun makeResultsCall() {
+    fun onTryAgainClicked() = makeResultsCall()
+
+    private fun makeResultsCall() {
         getResultsUseCase()
             .toNewModel(MatchResultsEntityMapper)
             .doOnSubscribe { onRequestStarted() }
